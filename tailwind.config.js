@@ -33,14 +33,18 @@ const extendedSize = {
   84: '21rem',
   88: '22rem',
   100: '25rem',
+  102: '28.25rem',
   116: '29rem',
   104: '28.75rem',
+  108: '27.82rem',
   124: '31rem',
   128: '32rem',
   132: '33rem',
   135: '33.75rem',
   136: '34rem',
+  140: '35.2rem',
   150: '37.5rem',
+  160: '41.25rem',
   180: '45rem',
   190: '47.75rem',
   204: '51rem',
@@ -64,6 +68,7 @@ module.exports = {
     extend: {
       screens: {
         'xs': '500px',
+        '1.5sm': '760px',
         'xl': '1280px',
         '1.5xl': '1440px',
         '1.7xl': '1536px',
@@ -168,6 +173,9 @@ module.exports = {
   },
   variants: {
     linearBorderGradients: ['responsive', 'hover', 'dark'], // defaults to ['responsive']
+    extend: {
+      display: ["group-hover"],
+  }
   },
   plugins: [],
 };
