@@ -10,6 +10,7 @@ import { TuiAvatarModule, TuiPaginationModule } from '@taiga-ui/kit';
 import { TuiExpandModule, TuiButtonModule } from '@taiga-ui/core';
 import {TuiMarkerIconModule} from '@taiga-ui/kit';
 import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.
     UserListingComponent,
     UserCardComponent,
     NavbarComponent,
-    CardSkeletonComponent
+    CardSkeletonComponent,
+    UserDetailsComponent
   ],
   imports: [
     CommonModule,
