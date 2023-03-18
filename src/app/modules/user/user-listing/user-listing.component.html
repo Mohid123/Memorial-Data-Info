@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+<section class="grid grid-cols-12 gap-2 mx-2 my-5 lg:mx-20 md:mx-10">
+  <ng-container *ngFor="let arr of Arr(6).fill(1)">
+    <app-user-card class="col-span-12 lg:col-span-3 sm:col-span-6"></app-user-card>
+    <!-- <app-card-skeleton class="col-span-12 lg:col-span-3 sm:col-span-6"></app-card-skeleton> -->
+  </ng-container>
+</section>
+<app-card-skeleton></app-card-skeleton>
+<section class="pb-10">
+  <tui-pagination
+    [length]="24"
+    [index]="index"
+    (indexChange)="goToPage($event)"
+  >
+  </tui-pagination>
+</section>
+

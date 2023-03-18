@@ -40,7 +40,7 @@ export class LoginComponent implements OnDestroy {
       if(response) {
         this.notif.displayNotification('You have logged in successfully', 'User Login', TuiNotification.Success);
         this.isSigningIn.next(false);
-        setTimeout(() => this.router.navigate(['/user/userListing']), 1000)
+        this.router.navigate(['/user/userListing'])
       }
     })
     setTimeout(() => this.isSigningIn.next(false), 2000)
@@ -51,7 +51,7 @@ export class LoginComponent implements OnDestroy {
     const guest = getSessionItem(StorageItem.GuestSession);
     if(guest) {
       this.notif.displayNotification('Your guest session has been created', 'User Login', TuiNotification.Success);
-      setTimeout(() => this.router.navigate(['/user/userListing']), 1000)
+      this.router.navigate(['/user/userListing'])
     }
   }
 

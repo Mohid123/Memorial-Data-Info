@@ -1,0 +1,68 @@
+<ul class="w-screen bg-[#1F2937] text-white py-8 md:px-12 px-6">
+  <div class="md:grid grid-cols-12 border-b border-[#9BA2AE] pb-2 hidden">
+    <li class="col-span-4">
+      <p class="pt-4 font-semibold uppercase">
+        Memorial Data Info
+      </p>
+    </li>
+    <li class="col-span-4">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg aria-hidden="true" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <input type="search" id="default-search" class="block outline-none w-full px-4 py-3 pl-10 text-sm text-white rounded-lg bg-[#404957]" placeholder="Search Users..." required>
+      </div>
+    </li>
+    <li class="flex justify-end col-span-4">
+      <tui-avatar
+        new
+        text="alex inkin"
+        size="m"
+        avatarUrl="tuiIconUser"
+        class="cursor-pointer tui-space_vertical-1"
+      >
+      </tui-avatar>
+    </li>
+  </div>
+  <ul class="justify-between hidden pt-5 md:flex gap-x-6">
+    <li>
+      <a routerLink="/user/userListing" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">Users</a>
+    </li>
+    <li class="cursor-pointer">
+      <a class="py-2 text-white">Logout</a>
+    </li>
+  </ul>
+
+
+  <!-- Mobile View-->
+  <div class="grid grid-cols-12 md:hidden">
+    <li class="col-span-2 pt-2 cursor-pointer">
+      <tui-marker-icon (click)="toggle()" size="xs" src="tuiIconMenuLarge" mode="success"></tui-marker-icon>
+    </li>
+    <li class="col-span-10">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+          <svg aria-hidden="true" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        </div>
+        <input type="search" id="default-search" class="block outline-none w-full px-4 py-3 pl-10 text-sm text-white rounded-lg bg-[#404957]" placeholder="Search Users..." required>
+      </div>
+    </li>
+  </div>
+  <tui-expand [expanded]="expanded">
+    <ng-template tuiExpandContent>
+      <div class="flex flex-col pt-5">
+        <p class="pt-2 pb-5 text-base font-semibold uppercase">Memorial Data Info</p>
+        <a routerLink="/user/userListing" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">Users</a>
+        <a class="px-5 pt-2 pb-4 text-white rounded-md">Logout</a>
+        <tui-avatar
+          new
+          text="alex inkin"
+          size="xs"
+          avatarUrl="tuiIconUser"
+          class="cursor-pointer tui-space_vertical-1"
+        >
+        </tui-avatar>
+      </div>
+    </ng-template>
+</tui-expand>
+</ul>
