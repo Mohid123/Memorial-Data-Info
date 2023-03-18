@@ -4,6 +4,7 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { getSessionItem, StorageItem } from 'src/@core/utils/local-storage.utils';
 import { AuthService } from '../services/auth.service';
 
 
@@ -13,7 +14,8 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authService.currentUserValue;
-    if (currentUser) {
+    const guest = getSessionItem(StorageItem.GuestSession) || null;
+    if (currentUser || guest) {
       // logged in so return true
       return true;
     }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { getItem, setItem, StorageItem } from '../../../../@core/utils/local-storage.utils';
+import { getItem, setItem, setSessionItem, StorageItem } from '../../../../@core/utils/local-storage.utils';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, exhaustMap, finalize, map, tap } from 'rxjs/operators';
 import { RegisterModel } from '../../../../@core/models/register.model';
@@ -88,7 +88,7 @@ export class AuthService extends ApiService<AuthApiData> {
     this.currentUserSubject.next(null);
     setItem(StorageItem.User, null);
     setItem(StorageItem.JwtToken, null);
-    this.router.navigate(['/api/auth/login'], {
+    this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
   }
@@ -109,5 +109,9 @@ export class AuthService extends ApiService<AuthApiData> {
       this.currentUserSubject.next(user);
       setItem(StorageItem.User, user);
     }
+  }
+
+  loginAsGuest() {
+    setSessionItem(StorageItem.GuestSession, 'Logged in as guest')
   }
 }

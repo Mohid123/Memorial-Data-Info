@@ -1,0 +1,107 @@
+<section class="h-screen">
+  <div class="container h-full px-6 py-24">
+    <div
+      class="flex flex-wrap items-center justify-center h-full g-6 lg:justify-between">
+      <div class="mb-12 md:mb-0 md:w-8/12 lg:w-6/12">
+        <img
+          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="w-full"
+          alt="Phone image" />
+      </div>
+      <div class="md:w-8/12 lg:ml-6 lg:w-5/12">
+        <p class="font-bold text-[#3F3D56] text-xl md:text-2xl text-center mb-5">Memorial Data Info</p>
+        <form [formGroup]="loginForm">
+          <!-- Email input -->
+          <div class="relative mb-6" data-te-input-wrapper-init>
+            <label class="block pb-2 text-sm font-bold">Email</label>
+            <tui-input
+              tuiTextfieldSize="l"
+              formControlName="email"
+              [tuiTextfieldLabelOutside]="true"
+              [tuiTextfieldCleaner]="true"
+            >
+              <input
+                tuiTextfield
+                type="email"
+              />
+            </tui-input>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Email is required to login',
+              control: f['email']
+            }">
+            </ng-container>
+          </div>
+
+          <!-- Password input -->
+          <div class="relative mb-6" data-te-input-wrapper-init>
+            <label class="block pb-2 text-sm font-bold">Password</label>
+            <tui-input-password
+              formControlName="password"
+              tuiTextfieldSize="l"
+              [tuiTextfieldLabelOutside]="true"
+            >
+              <input
+                tuiTextfield
+              />
+            </tui-input-password>
+            <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+              validation: 'required',
+              message: 'Password is required to login',
+              control: f['password']
+            }">
+            </ng-container>
+          </div>
+
+          <div class="flex justify-end mb-6">
+            <a
+              class="text-orange-500 transition duration-150 ease-in-out cursor-pointer hover:text-orange-600 focus:text-orange-600 active:text-orange-700 dark:text-orange-400 dark:hover:text-orange-500 dark:focus:text-orange-500 dark:active:text-orange-600"
+            >
+              Forgot password?
+            </a>
+          </div>
+
+          <!-- Submit button -->
+          <button
+            tuiButton
+            type="submit"
+            appearance="custom"
+            [showLoader]="(isSigningIn | async)!"
+            class="inline-block w-full bg-[#3F3D56] text-white"
+            (click)="onSubmit()"
+          >
+            Sign In
+          </button>
+
+          <div
+            class="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+            <p
+              class="mx-4 mb-0 font-semibold text-center dark:text-neutral-200">
+              OR
+            </p>
+          </div>
+
+          <a
+            (click)="guestSession()"
+            class="mb-3 flex w-full items-center justify-center rounded bg-[#AAC7FA] px-7 pt-3 pb-2.5 text-center text-sm font-semibold uppercase leading-normal text-[#3F3D56] shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+            style="background-color: #AAC7FA"
+            role="button"
+            data-te-ripple-init
+            data-te-ripple-color="light">
+            Proceed as a Guest
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="w-full mt-1 text-left fv-plugins-message-container text-xxs 2xl:text-xs">
+      <span class="text-xs font-semibold text-red-700 fv-help-block" role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>

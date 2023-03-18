@@ -4,6 +4,7 @@ export enum StorageItem {
   JwtToken = 'App/jwtToken',
   Key = 'App/key',
   Theme = 'App/theme',
+  GuestSession = 'App/Guest_Session'
 }
 
 export const getItem = (itemName: StorageItem): any | null => {
@@ -18,3 +19,11 @@ export const setItem = (itemName: StorageItem, value: unknown): void => {
 export const removeItem = (itemName: StorageItem): void => {
   localStorage.removeItem(itemName);
 };
+
+export const setSessionItem = (itemName: StorageItem, value: string): void => {
+  sessionStorage.setItem(itemName, value)
+}
+
+export const getSessionItem = (itemName: StorageItem): any => {
+  return sessionStorage.getItem(itemName);
+}
