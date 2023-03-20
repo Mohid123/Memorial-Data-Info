@@ -1,16 +1,36 @@
 <app-navbar></app-navbar>
-<section class="grid grid-cols-12 gap-2 mx-2 my-5 lg:mx-20 md:mx-10">
-  <ng-container *ngFor="let arr of Arr(6).fill(1)">
-    <app-user-card class="col-span-12 lg:col-span-4 xl:col-span-3 sm:col-span-6"></app-user-card>
-    <!-- <app-card-skeleton class="col-span-12 lg:col-span-3 sm:col-span-6"></app-card-skeleton> -->
-  </ng-container>
+<section class="grid grid-cols-12 mx-2 my-5 lg:mx-20 md:mx-10 pb-10">
+  <app-user-card (deleteUser)="openDeleteDialog($event)" class="col-span-12"></app-user-card>
 </section>
-<section class="pb-10">
-  <tui-pagination
-    [length]="24"
-    [index]="index"
-    (indexChange)="goToPage($event)"
+
+<ng-template
+  #template
+  let-observer
+  let-user
+>
+  <div class="dialog-header">
+    <h3>Are you sure you want to delete <span class="text-red-500 mx-1">{{deleteUserData.username}}'s</span> data?</h3>
+  </div>
+  <div class="dialog-content">
+    <button
+    tuiButton
+    type="button"
+    appearance="secondary"
+    size="m"
+    class="tui-space_right-3"
+    (click)="observer.complete()"
   >
-  </tui-pagination>
-</section>
+    Cancel
+  </button>
+  <button
+    tuiButton
+    type="button"
+    appearance="secondary-destructive"
+    size="m"
+    (click)="observer.complete(); deleteUser()"
+  >
+    Delete
+  </button>
+  </div>
+</ng-template>
 
