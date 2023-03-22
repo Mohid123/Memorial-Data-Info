@@ -3,22 +3,22 @@
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-          <th scope="col" class="px-6 py-4">
+          <th scope="col" class="px-6 py-4 text-center">
             User name
           </th>
-          <th scope="col" class="px-6 py-4">
+          <th scope="col" class="px-6 py-4 text-center">
             Actions
           </th>
         </tr>
       </thead>
         <tbody>
           <ng-container *ngFor="let user of userData; let i = index; let first = first; let last = last;">
-            <tr class="bg-white" [ngClass]="!last ? 'border-b border-gray-200' : ''">
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            <tr class="bg-white text-center w-full" [ngClass]="!last ? 'border-b border-gray-200' : ''">
+              <th scope="row" class="px-6 py-4 w-1/2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{user.username}}
               </th>
-              <td class="px-6 py-4">
-                <div class="flex justify-start py-3">
+              <td class="px-6 py-4 w-1/2">
+                <div class="flex justify-center py-3">
                   <button
                     tuiIconButton
                     type="button"
@@ -50,7 +50,7 @@
         </tbody>
     </table>
   </tui-loader>
-  <div class="flex justify-end py-6 pr-5">
+  <div class="flex justify-center pt-10 pb-6">
     <tui-pagination
       [length]="24"
       [index]="index"
