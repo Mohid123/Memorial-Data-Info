@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, EventEmitter, Output } from '@angular/core';
+import { User } from 'src/@core/models/user.model';
 
 @Component({
   selector: 'app-user-card',
@@ -7,30 +8,34 @@ import { ChangeDetectionStrategy, Component, Input, EventEmitter, Output } from 
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserCardComponent {
-  @Input() userData: any[] = [
+  @Input() userData: User[] = [
     {
       id: '1',
-      username: 'Virgil van Dijk'
-    },
-    {
-      id: '2',
-      username: 'Lionel Andres Messi Cuccitini'
-    },
-    {
-      id: '3',
-      username: 'Paolo Maldini'
+      firstName: 'Virgil',
+      middleName: 'van',
+      lastName: 'Dijk',
+      designation: 'Center Back',
+      bio: 'Center back for Liverpool. Currently having a poor season. Nominated for Fifa best player in 2019.',
+      profilePic: {
+        captureFileURL: '../../../../../assets/Memorial Data Info.png',
+        blurHash: ''
+      }
     }
   ];
   @Output() deleteUser = new EventEmitter()
+  @Output() editUser = new EventEmitter()
   Arr = Array;
   index = 0;
 
   goToPage(index: number): void {
     this.index = index;
-    console.info('New page:', index);
   }
 
   deleteUserData(user: any) {
     this.deleteUser.emit(user);
+  }
+
+  editUserData(user: any) {
+    this.editUser.emit(user);
   }
 }

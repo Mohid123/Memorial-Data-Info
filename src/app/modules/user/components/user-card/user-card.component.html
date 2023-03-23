@@ -13,11 +13,11 @@
       </thead>
         <tbody>
           <ng-container *ngFor="let user of userData; let i = index; let first = first; let last = last;">
-            <tr class="bg-white text-center w-full" [ngClass]="!last ? 'border-b border-gray-200' : ''">
-              <th scope="row" class="px-6 py-4 w-1/2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{user.username}}
+            <tr class="w-full text-center bg-white" [ngClass]="!last ? 'border-b border-gray-200' : ''">
+              <th scope="row" class="w-1/2 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{user.firstName + ' ' + user.middleName + ' ' + user.lastName}}
               </th>
-              <td class="px-6 py-4 w-1/2">
+              <td class="w-1/2 px-6 py-4">
                 <div class="flex justify-center py-3">
                   <button
                     tuiIconButton
@@ -42,6 +42,8 @@
                     size="xs"
                     icon="tuiIconEdit"
                     appearance="secondary-destructive"
+                    (click)="editUserData(user)"
+                    [routerLink]="['/user/editUser', user.id]"
                   ></button>
                 </div>
               </td>

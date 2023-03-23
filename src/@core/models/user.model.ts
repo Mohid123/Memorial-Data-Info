@@ -5,4 +5,8 @@ export class User {
   lastName!: string;
   designation!: string;
   bio!: string;
+  profilePic!: {
+    captureFileURL: string,
+    blurHash: string
+  }
 }

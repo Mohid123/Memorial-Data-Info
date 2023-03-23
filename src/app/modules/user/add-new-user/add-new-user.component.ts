@@ -1,38 +1,77 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, pluck, Subject, switchMap } from 'rxjs';
 import { MediaUploadService } from 'src/@core/core-service/media-upload.service';
 import { ApiResponse } from 'src/@core/models/core-response-model/response.model';
 import { ResponseAddMedia } from 'src/@core/models/media-upload.model';
 import { map, takeUntil } from 'rxjs';
 import { TuiNotification } from '@taiga-ui/core';
 import { NotificationsService } from 'src/@core/core-service/notifications.service';
+import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   templateUrl: './add-new-user.component.html',
   styleUrls: ['./add-new-user.component.scss']
 })
-export class AddNewUserComponent implements OnDestroy {
+export class AddNewUserComponent implements OnInit, OnDestroy {
   userForm!: FormGroup;
   uploadingImage = new Subject<boolean>();
   uploadedImage = new BehaviorSubject<any>({
      captureFileURL: '',
-        blurHash: ''
+      blurHash: ''
   });
   destroy$ = new Subject<any>();
+  user: any;
+  editMode$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private media: MediaUploadService, private notif: NotificationsService) {
-    this.initUserForm();
+  constructor(
+    private media: MediaUploadService,
+    private notif: NotificationsService,
+    private activatedRoute: ActivatedRoute,
+    private userService: UserService,
+    private router: Router
+    ) {
+    this.activatedRoute.params.pipe(pluck('id'), switchMap(id => id ? 'send api call for get user' : ''))
+    .subscribe((val: any) => {
+      if(val !== '') {
+        this.user = val;
+        if(Object.keys(this.userService.sendUserForEdit).length == 0) {
+          this.initUserForm(val);
+          this.uploadedImage.next(val?.profilePic);
+          this.editMode$.next(true);
+        }
+      }
+    });
+
+    this.router.events.forEach((event: any) => {
+      if(event instanceof NavigationStart) {
+        this.userService.sendUserForEdit = {};
+      }
+    })
   }
 
-  initUserForm() {
+  ngOnInit(): void {
+    if(Object.keys(this.userService.sendUserForEdit).length > 0) {
+      this.user = this.userService.sendUserForEdit;
+      this.uploadedImage.next(this.user.profilePic);
+      this.initUserForm(this.user);
+      this.editMode$.next(true);
+    }
+    else {
+      this.initUserForm();
+      this.editMode$.next(false);
+    }
+  }
+
+  initUserForm(user?: any) {
     this.userForm = new FormGroup({
-      firstName: new FormControl(null, Validators.required),
-      middleName: new FormControl(null, Validators.required),
-      lastName: new FormControl(null, Validators.required),
-      designation: new FormControl(null, Validators.required),
-      bio: new FormControl(null, Validators.required),
-      profilePic: new FormControl({
+      firstName: new FormControl(user?.firstName || null, Validators.required),
+      middleName: new FormControl(user?.middleName || null, Validators.required),
+      lastName: new FormControl(user?.lastName || null, Validators.required),
+      designation: new FormControl(user?.designation || null, Validators.required),
+      bio: new FormControl(user?.bio || null, Validators.required),
+      profilePic: new FormControl(user?.profilePic || {
         captureFileURL: '',
         blurHash: ''
       })

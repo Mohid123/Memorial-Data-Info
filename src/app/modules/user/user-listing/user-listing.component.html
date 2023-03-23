@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <section class="grid grid-cols-12 pb-10 mx-2 my-5 lg:mx-20 md:mx-10">
-  <app-user-card (deleteUser)="openDeleteDialog($event)" class="col-span-12"></app-user-card>
+  <app-user-card (editUser)="sendEditData($event)" (deleteUser)="openDeleteDialog($event)" class="col-span-12"></app-user-card>
 </section>
 
 <ng-template
