@@ -1,6 +1,8 @@
 export class User {
-  _id!: string;
-  email!: string;
-  username!: string;
-  password!: string;
+  id!: string;
+  firstName!: string;
+  middleName!: string;
+  lastName!: string;
+  designation!: string;
+  bio!: string;
 }

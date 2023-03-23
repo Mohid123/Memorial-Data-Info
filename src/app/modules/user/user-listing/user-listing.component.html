@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<section class="grid grid-cols-12 mx-2 my-5 lg:mx-20 md:mx-10 pb-10">
+<section class="grid grid-cols-12 pb-10 mx-2 my-5 lg:mx-20 md:mx-10">
   <app-user-card (deleteUser)="openDeleteDialog($event)" class="col-span-12"></app-user-card>
 </section>
 
@@ -9,7 +9,7 @@
   let-user
 >
   <div class="dialog-header">
-    <h3>Are you sure you want to delete <span class="text-red-500 mx-1">{{deleteUserData.username}}'s</span> data?</h3>
+    <h3>Are you sure you want to delete <span class="mx-1 text-red-500">{{deleteUserData.username}}'s</span> data?</h3>
   </div>
   <div class="dialog-content">
     <button
@@ -19,7 +19,7 @@
       size="m"
       class="tui-space_right-3"
       (click)="observer.complete()"
-  >
+    >
     Cancel
   </button>
   <button

@@ -7,10 +7,12 @@ import { UserListingComponent } from './user-listing/user-listing.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TuiAvatarModule, TuiPaginationModule } from '@taiga-ui/kit';
-import { TuiExpandModule, TuiButtonModule, TuiLoaderModule } from '@taiga-ui/core';
-import {TuiMarkerIconModule} from '@taiga-ui/kit';
+import { TuiExpandModule, TuiButtonModule, TuiLoaderModule, TuiTextfieldControllerModule } from '@taiga-ui/core';
+import {TuiMarkerIconModule, TuiInputModule, TuiTextAreaModule } from '@taiga-ui/kit';
 import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { AddNewUserComponent } from './add-new-user/add-new-user.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     UserCardComponent,
     NavbarComponent,
     CardSkeletonComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    AddNewUserComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +32,12 @@ import { UserDetailsComponent } from './user-details/user-details.component';
     TuiMarkerIconModule,
     TuiPaginationModule,
     TuiButtonModule,
-    TuiLoaderModule
+    TuiLoaderModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TuiTextfieldControllerModule,
+    TuiInputModule,
+    TuiTextAreaModule
   ]
 })
 export class UserModule { }

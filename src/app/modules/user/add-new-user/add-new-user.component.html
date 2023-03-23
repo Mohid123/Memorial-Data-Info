@@ -1,0 +1,120 @@
+<app-navbar></app-navbar>
+<div class="w-10/12 py-8 mx-auto mt-3 rounded-md shadow-lg lg:w-9/12 px-7">
+  <form [formGroup]="userForm">
+    <div class="relative flex justify-center">
+      <img class="rounded-full w-36 h-36 border border-[#3F3D56]" [src]="(uploadedImage | async)?.captureFileURL ? (uploadedImage | async)?.captureFileURL : '../../../../assets/avatar.webp'" alt="avatar" />
+      <tui-loader [inheritColor]="false" [overlay]="true" class="absolute flex items-center justify-center overflow-visible top-16" [size]="'l'" [showLoader]="(uploadingImage | async) == true"></tui-loader>
+      <label class="absolute flex items-center justify-center transition duration-500 rounded-full cursor-pointer w-36 h-36 group hover:bg-gray-200 opacity-60">
+        <img class="hidden w-12 group-hover:block" src="https://www.svgrepo.com/show/33565/upload.svg" alt="upload_svg" />
+        <input [disabled]="(uploadingImage | async) == true" (change)="onSelectFile($event)" type='file' class="hidden" :accept=".png, .jpg, .jpeg" />
+      </label>
+    </div>
+    <p class="pt-1 pb-5 text-xs text-center">Allowed file types are PNG and JPEG</p>
+    <div class="grid grid-cols-12 gap-3">
+      <div class="col-span-12 md:col-span-4">
+        <tui-input
+          formControlName="firstName"
+          [tuiTextfieldCleaner]="true"
+        >
+          First Name&nbsp;
+          <span class="tui-required"></span>
+          <input
+            tuiTextfield
+            type="text"
+          />
+        </tui-input>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'First name is required',
+          control: f['firstName']
+        }"></ng-container>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <tui-input
+          formControlName="middleName"
+          [tuiTextfieldCleaner]="true"
+        >
+          Middle Name&nbsp;
+          <span class="tui-required"></span>
+          <input
+            tuiTextfield
+            type="text"
+          />
+        </tui-input>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Middle name is required',
+          control: f['middleName']
+        }"></ng-container>
+      </div>
+      <div class="col-span-12 md:col-span-4">
+        <tui-input
+          formControlName="lastName"
+          [tuiTextfieldCleaner]="true"
+        >
+          Last Name&nbsp;
+          <span class="tui-required"></span>
+          <input
+            tuiTextfield
+            type="text"
+          />
+        </tui-input>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Last name is required',
+          control: f['lastName']
+        }"></ng-container>
+      </div>
+    </div>
+    <tui-input
+      formControlName="designation"
+      [tuiTextfieldCleaner]="true"
+      class="pt-3"
+    >
+      Designation&nbsp;
+      <span class="tui-required"></span>
+      <input
+        tuiTextfield
+        type="text"
+      />
+    </tui-input>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+      validation: 'required',
+      message: 'Please provide a designation for this user',
+      control: f['designation']
+    }"></ng-container>
+
+    <tui-text-area
+      formControlName="bio"
+      class="pt-3 tui-space_bottom-4 field-large"
+    >
+      Bio&nbsp;
+      <span class="tui-required"></span>
+    </tui-text-area>
+    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+      validation: 'required',
+      message: 'Please provide a bio for this user',
+      control: f['bio']
+    }"></ng-container>
+
+    <div class="flex justify-center">
+      <button
+        tuiButton
+        type="button"
+        (click)="submitUserData()"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="w-full mt-1 text-left fv-plugins-message-container text-xxs 2xl:text-xs">
+      <span class="text-red-500 fv-help-block text-xxs 2xl:text-xs 2xl:mb-2" role="alert">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>
