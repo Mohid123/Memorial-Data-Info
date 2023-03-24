@@ -8,6 +8,7 @@ import { CoreModule } from 'src/@core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { TuiPreviewModule } from "@taiga-ui/addon-preview";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     }),
       BrowserAnimationsModule,
       TuiRootModule,
+      TuiPreviewModule,
       TuiDialogModule,
       TuiAlertModule
 ],

@@ -13,6 +13,7 @@ import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     TuiTextfieldControllerModule,
     TuiInputModule,
-    TuiTextAreaModule
+    TuiTextAreaModule,
+    TuiPreviewModule
   ]
 })
 export class UserModule { }
