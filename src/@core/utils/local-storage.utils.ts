@@ -27,3 +27,7 @@ export const setSessionItem = (itemName: StorageItem, value: string): void => {
 export const getSessionItem = (itemName: StorageItem): any => {
   return sessionStorage.getItem(itemName);
 }
+
+export const removeSessionItem = (itemName: StorageItem): any => {
+  return sessionStorage.removeItem(itemName);
+}
