@@ -88,6 +88,7 @@ export class AuthService extends ApiService<AuthApiData> {
     this.currentUserSubject.next(null);
     setItem(StorageItem.User, null);
     setItem(StorageItem.JwtToken, null);
+    setItem(StorageItem.GuestSession, null);
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });
