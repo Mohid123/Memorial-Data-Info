@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="w-10/12 py-8 mx-auto mt-3 rounded-md shadow-lg lg:w-9/12 px-7">
+<div class="w-10/12 py-5 mx-auto mt-3 rounded-md shadow-lg lg:w-9/12 px-7 bg-[#F5F5DC]">
   <form [formGroup]="userForm">
     <div class="relative flex justify-center">
       <img class="rounded-full w-36 h-36 border border-[#3F3D56]" [src]="(uploadedImage | async)?.captureFileURL ? (uploadedImage | async)?.captureFileURL : '../../../../assets/avatar.webp'" alt="avatar" />
@@ -108,6 +108,7 @@
     </div>
   </form>
 </div>
+<br>
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
   <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
