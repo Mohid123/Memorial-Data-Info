@@ -43,7 +43,8 @@ export class EditAdminComponent implements OnInit, OnDestroy {
     this.adminForm = new FormGroup({
       name: new FormControl(''),
       email: new FormControl(''),
-      password: new FormControl(''),
+      oldPassword: new FormControl(''),
+      newPassword: new FormControl(''),
       profilePic: new FormControl({
         captureFileURL: '',
         blurHash: ''

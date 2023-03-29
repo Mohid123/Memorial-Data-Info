@@ -1,53 +1,89 @@
 <app-navbar></app-navbar>
 <div class="w-10/12 py-5 mx-auto mt-3 rounded-md shadow-lg lg:w-9/12 px-7 bg-[#F5F5DC]">
   <form [formGroup]="adminForm">
-    <div class="relative flex justify-center">
-      <img class="rounded-full w-36 h-36 border border-[#3F3D56]" [src]="(uploadedImage | async)?.captureFileURL ? (uploadedImage | async)?.captureFileURL : '../../../../assets/avatar.webp'" alt="avatar" />
-      <tui-loader [inheritColor]="false" [overlay]="true" class="absolute flex items-center justify-center overflow-visible top-16" [size]="'l'" [showLoader]="(uploadingImage | async) == true"></tui-loader>
-      <label class="absolute flex items-center justify-center transition duration-500 rounded-full cursor-pointer w-36 h-36 group hover:bg-gray-200 opacity-60">
-        <img class="hidden w-12 group-hover:block" src="https://www.svgrepo.com/show/33565/upload.svg" alt="upload_svg" />
-        <input [disabled]="(uploadingImage | async) == true" (change)="onSelectFile($event)" type='file' class="hidden" :accept=".png, .jpg, .jpeg" />
-      </label>
-    </div>
-    <p class="pt-1 pb-5 text-xs text-center">Allowed file types are PNG and JPEG</p>
-    <div class="col-span-12 my-3">
-      <tui-input
-        formControlName="name"
-        [tuiTextfieldCleaner]="true"
-      >
-        Name&nbsp;
-        <span class="tui-required"></span>
-        <input
-          tuiTextfield
-          type="text"
-        />
-      </tui-input>
-    </div>
-    <div class="col-span-12 my-3">
-      <tui-input
-        formControlName="email"
-        [tuiTextfieldCleaner]="true"
-      >
-        Email&nbsp;
-        <span class="tui-required"></span>
-        <input
-          tuiTextfield
-          type="text"
-        />
-      </tui-input>
-    </div>
-    <div class="col-span-12 my-3">
-      <tui-input-password
-        formControlName="password"
-        [tuiTextfieldCleaner]="true"
-      >
-        Password&nbsp;
-        <span class="tui-required"></span>
-        <input
-          tuiTextfield
-          type="text"
-        />
-      </tui-input-password>
-    </div>
+    <section class="grid grid-cols-2 gap-3">
+      <div class="relative flex justify-center col-span-2">
+        <img class="rounded-full w-36 h-36 border border-[#3F3D56]" [src]="(uploadedImage | async)?.captureFileURL ? (uploadedImage | async)?.captureFileURL : '../../../../assets/avatar.webp'" alt="avatar" />
+        <tui-loader [inheritColor]="false" [overlay]="true" class="absolute flex items-center justify-center overflow-visible top-16" [size]="'l'" [showLoader]="(uploadingImage | async) == true"></tui-loader>
+        <label class="absolute flex items-center justify-center transition duration-500 rounded-full cursor-pointer w-36 h-36 group hover:bg-gray-200 opacity-60">
+          <img class="hidden w-12 group-hover:block" src="https://www.svgrepo.com/show/33565/upload.svg" alt="upload_svg" />
+          <input [disabled]="(uploadingImage | async) == true" (change)="onSelectFile($event)" type='file' class="hidden" :accept=".png, .jpg, .jpeg" />
+        </label>
+        <p class="absolute block pt-1 mx-auto text-xs text-center top-36">Allowed file types are PNG and JPEG</p>
+      </div>
+      <div class="col-span-2 pr-7 md:col-span-1 md:border-r-2 md:border-[#404957] mt-5">
+        <div class="col-span-12 my-3">
+          <tui-input
+            formControlName="name"
+            [tuiTextfieldCleaner]="true"
+          >
+            Name&nbsp;
+            <span class="tui-required"></span>
+            <input
+              tuiTextfield
+              type="text"
+            />
+          </tui-input>
+        </div>
+        <div class="my-3">
+          <tui-input
+            formControlName="email"
+            [tuiTextfieldCleaner]="true"
+          >
+            Email&nbsp;
+            <span class="tui-required"></span>
+            <input
+              tuiTextfield
+              type="text"
+            />
+          </tui-input>
+        </div>
+        <div class="my-5">
+          <button
+            tuiButton
+            type="button"
+          >
+            Update Profile
+          </button>
+        </div>
+      </div>
+      <div class="col-span-2 pl-3 mt-5 md:col-span-1">
+        <p class="my-8 text-lg font-semibold text-[#3F3D56] block md:hidden">Reset Password</p>
+        <div class="my-3">
+          <tui-input-password
+            formControlName="oldPassword"
+            [tuiTextfieldCleaner]="true"
+          >
+            Old Password&nbsp;
+            <span class="tui-required"></span>
+            <input
+              tuiTextfield
+              type="text"
+            />
+          </tui-input-password>
+        </div>
+        <div class="my-3">
+          <tui-input-password
+            formControlName="newPassword"
+            [tuiTextfieldCleaner]="true"
+          >
+            New Password&nbsp;
+            <span class="tui-required"></span>
+            <input
+              tuiTextfield
+              type="text"
+            />
+          </tui-input-password>
+        </div>
+        <div class="my-5">
+          <button
+            tuiButton
+            type="button"
+          >
+            Reset Password
+          </button>
+        </div>
+      </div>
+    </section>
   </form>
 </div>
