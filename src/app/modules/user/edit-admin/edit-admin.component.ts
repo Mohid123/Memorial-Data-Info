@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Subject, BehaviorSubject, takeUntil, map } from 'rxjs';
 import { MediaUploadService } from 'src/@core/core-service/media-upload.service';
@@ -6,12 +6,15 @@ import { NotificationsService } from 'src/@core/core-service/notifications.servi
 import { ApiResponse } from 'src/@core/models/core-response-model/response.model';
 import { ResponseAddMedia } from 'src/@core/models/media-upload.model';
 import { TuiNotification } from '@taiga-ui/core';
+import { UserService } from '../user.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { User } from 'src/@core/models/user.model';
 
 @Component({
   templateUrl: './edit-admin.component.html',
   styleUrls: ['./edit-admin.component.scss']
 })
-export class EditAdminComponent implements OnDestroy {
+export class EditAdminComponent implements OnInit, OnDestroy {
   adminForm!: FormGroup;
   uploadingImage = new Subject<boolean>();
   uploadedImage = new BehaviorSubject<any>({
@@ -20,8 +23,20 @@ export class EditAdminComponent implements OnDestroy {
   });
   destroy$ = new Subject();
 
-  constructor(private media: MediaUploadService, private notif: NotificationsService) {
-    this.initAdminForm()
+  constructor(
+    private media: MediaUploadService,
+    private notif: NotificationsService,
+    private userService: UserService,
+    private auth: AuthService
+  ) {
+    // this.userService.getUser().pipe(takeUntil(this.destroy$)).subscribe();
+  }
+
+  ngOnInit(): void {
+    this.initAdminForm();
+    this.auth.currentUser$.pipe(takeUntil(this.destroy$)).subscribe((user: User | any) => {
+      console.log(user)
+    })
   }
 
   initAdminForm() {
