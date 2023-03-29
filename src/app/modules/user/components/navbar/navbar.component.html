@@ -37,9 +37,14 @@
         </a>
       </li>
     </div>
-    <li class="cursor-pointer">
-      <a (click)="showDialog(template)" class="py-2 text-white">Logout</a>
-    </li>
+    <div class="flex justify-start space-x-5">
+      <li class="cursor-pointer">
+        <a routerLink="/user/editAdminUser" routerLinkActive="active" class="px-5 py-2 text-white rounded-md">Edit Profile</a>
+      </li>
+      <li class="cursor-pointer">
+        <a (click)="showDialog(template)" class="py-2 text-white">Logout</a>
+      </li>
+    </div>
   </ul>
 
   <!-- Mobile View-->
@@ -65,6 +70,9 @@
           <span>
             Add new &nbsp; &#43;
           </span>
+        </a>
+        <a routerLink="/user/editAdminUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
+          Edit Profile
         </a>
         <a (click)="showDialog(template)" class="px-5 pt-2 pb-4 text-white rounded-md cursor-pointer">Logout</a>
         <tui-avatar

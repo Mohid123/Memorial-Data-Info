@@ -17,17 +17,12 @@
           [tuiTextfieldCleaner]="true"
         >
           First Name&nbsp;
-          <span class="tui-required"></span>
+          
           <input
             tuiTextfield
             type="text"
           />
         </tui-input>
-        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-          validation: 'required',
-          message: 'First name is required',
-          control: f['firstName']
-        }"></ng-container>
       </div>
       <div class="col-span-12 md:col-span-4">
         <tui-input
@@ -35,17 +30,12 @@
           [tuiTextfieldCleaner]="true"
         >
           Middle Name&nbsp;
-          <span class="tui-required"></span>
+          
           <input
             tuiTextfield
             type="text"
           />
         </tui-input>
-        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-          validation: 'required',
-          message: 'Middle name is required',
-          control: f['middleName']
-        }"></ng-container>
       </div>
       <div class="col-span-12 md:col-span-4">
         <tui-input
@@ -53,17 +43,12 @@
           [tuiTextfieldCleaner]="true"
         >
           Last Name&nbsp;
-          <span class="tui-required"></span>
+          
           <input
             tuiTextfield
             type="text"
           />
         </tui-input>
-        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-          validation: 'required',
-          message: 'Last name is required',
-          control: f['lastName']
-        }"></ng-container>
       </div>
     </div>
     <tui-input
@@ -72,30 +57,20 @@
       class="pt-3"
     >
       Designation&nbsp;
-      <span class="tui-required"></span>
+      
       <input
         tuiTextfield
         type="text"
       />
     </tui-input>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-      validation: 'required',
-      message: 'Please provide a designation for this user',
-      control: f['designation']
-    }"></ng-container>
 
     <tui-text-area
       formControlName="bio"
       class="pt-3 tui-space_bottom-4 field-large"
     >
       Bio&nbsp;
-      <span class="tui-required"></span>
+      
     </tui-text-area>
-    <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
-      validation: 'required',
-      message: 'Please provide a bio for this user',
-      control: f['bio']
-    }"></ng-container>
 
     <div class="flex justify-center">
       <button
@@ -109,13 +84,3 @@
   </form>
 </div>
 <br>
-
-<ng-template #formError let-control="control" let-message="message" let-validation="validation">
-  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
-    <div class="w-full mt-1 text-left fv-plugins-message-container text-xxs 2xl:text-xs">
-      <span class="text-red-500 fv-help-block text-xxs 2xl:text-xs 2xl:mb-2" role="alert">
-        {{ message }}
-      </span>
-    </div>
-  </ng-container>
-</ng-template>

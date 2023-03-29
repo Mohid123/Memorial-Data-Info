@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, pluck, Subject, switchMap } from 'rxjs';
+import { FormControl, FormGroup, } from '@angular/forms';
+import { BehaviorSubject, pluck, Subject, switchMap } from 'rxjs';
 import { MediaUploadService } from 'src/@core/core-service/media-upload.service';
 import { ApiResponse } from 'src/@core/models/core-response-model/response.model';
 import { ResponseAddMedia } from 'src/@core/models/media-upload.model';
@@ -19,7 +19,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   uploadingImage = new Subject<boolean>();
   uploadedImage = new BehaviorSubject<any>({
      captureFileURL: '',
-      blurHash: ''
+     blurHash: ''
   });
   destroy$ = new Subject<any>();
   user: any;
@@ -66,11 +66,11 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
 
   initUserForm(user?: any) {
     this.userForm = new FormGroup({
-      firstName: new FormControl(user?.firstName || null, Validators.required),
-      middleName: new FormControl(user?.middleName || null, Validators.required),
-      lastName: new FormControl(user?.lastName || null, Validators.required),
-      designation: new FormControl(user?.designation || null, Validators.required),
-      bio: new FormControl(user?.bio || null, Validators.required),
+      firstName: new FormControl(user?.firstName || null),
+      middleName: new FormControl(user?.middleName || null),
+      lastName: new FormControl(user?.lastName || null),
+      designation: new FormControl(user?.designation || null),
+      bio: new FormControl(user?.bio || null),
       profilePic: new FormControl(user?.profilePic || {
         captureFileURL: '',
         blurHash: ''
