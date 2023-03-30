@@ -17,7 +17,10 @@ export class LoginComponent implements OnDestroy {
   destroy$ = new Subject();
 
   constructor(private auth: AuthService, private router: Router, private notif: NotificationsService) {
-    this.initloginForm()
+    this.initloginForm();
+    if(this.auth.currentUserValue || getSessionItem(StorageItem.GuestSession)) {
+      this.router.navigate(['/user/userListing']);
+    }
   }
 
   get f() {
@@ -38,12 +41,14 @@ export class LoginComponent implements OnDestroy {
     this.isSigningIn.next(true)
     this.auth.login(this.loginForm.value).pipe(takeUntil(this.destroy$), first()).subscribe(response => {
       if(response) {
-        this.notif.displayNotification('You have logged in successfully', 'User Login', TuiNotification.Success);
         this.isSigningIn.next(false);
+        this.notif.displayNotification('You have logged in successfully', 'User Login', TuiNotification.Success);
         this.router.navigate(['/user/userListing'])
       }
+      else {
+        this.isSigningIn.next(false);
+      }
     })
-    setTimeout(() => this.isSigningIn.next(false), 2000)
   }
 
   guestSession() {

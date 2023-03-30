@@ -22,7 +22,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if ([401, 403].includes(error.status) && !request.url.includes('auth/signup') && error?.error?.message !== "Incorrect credentials") {
+        if ([401, 403].includes(error.status)) {
           this.router.navigate([ '/']);
           return throwError(error);
         } else if (error.status === 500) {

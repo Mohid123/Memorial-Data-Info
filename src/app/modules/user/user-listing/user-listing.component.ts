@@ -1,6 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { TuiDialogContext, TuiDialogService } from '@taiga-ui/core';
 import {PolymorpheusContent} from '@tinkoff/ng-polymorpheus';
+import { AuthService } from '../../auth/services/auth.service';
 import { UserService } from '../user.service';
 @Component({
   templateUrl: './user-listing.component.html',
@@ -11,7 +12,9 @@ export class UserListingComponent {
   @ViewChild('editTemplate') editTemplate: any;
   deleteUserData: any;
   edituserData: any;
-  constructor(@Inject(TuiDialogService) private readonly dialogService: TuiDialogService, private userService: UserService) {}
+  constructor(@Inject(TuiDialogService) private readonly dialogService: TuiDialogService, private userService: UserService, private auth: AuthService) {
+    console.log(this.auth.currentUserValue)
+  }
 
   deleteUser() {
   }

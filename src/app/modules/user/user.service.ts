@@ -4,6 +4,9 @@ import { ApiService } from 'src/@core/core-service/api.service';
 import { User } from 'src/@core/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/services/auth.service';
+import { AdminUser } from 'src/@core/models/adminUser.model';
+import { Observable, shareReplay } from 'rxjs';
+import { ApiResponse } from 'src/@core/models/core-response-model/response.model';
 
 type UserInfo = User
 @Injectable({
@@ -25,10 +28,15 @@ export class UserService extends ApiService<UserInfo> {
   }
 
   getUser() {
-    return this.get('/users/getUserById/'+ this.authService.currentUserValue?.id).pipe(tap((res:any)=> {
+    return this.get('/auth/getUserById/'+ this.authService.currentUserValue?.id).pipe(shareReplay(), tap((res:any)=> {
       if(!res.hasErrors()) {
         this.authService.updateUser(res.data)
       }
-    }))
+    })).subscribe()
   }
+
+  updateAdminUser(payload: AdminUser): Observable<ApiResponse<any>> {
+    return this.post(`/auth/updateUser/${this.authService.currentUserValue?.id}`, payload).pipe(shareReplay())
+  }
+
 }

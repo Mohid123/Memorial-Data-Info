@@ -42,6 +42,8 @@
           <button
             tuiButton
             type="button"
+            [showLoader]="(updatingProfile | async)!"
+            (click)="updateUser()"
           >
             Update Profile
           </button>
@@ -79,6 +81,8 @@
           <button
             tuiButton
             type="button"
+            [showLoader]="(updatingPassword | async)!"
+            (click)="updatePassword()"
           >
             Reset Password
           </button>

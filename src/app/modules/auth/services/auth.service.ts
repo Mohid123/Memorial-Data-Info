@@ -3,13 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { getItem, removeSessionItem, setItem, setSessionItem, StorageItem } from '../../../../@core/utils/local-storage.utils';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, exhaustMap, finalize, map, tap } from 'rxjs/operators';
+import { catchError, exhaustMap, finalize, map, tap, shareReplay } from 'rxjs/operators';
 import { RegisterModel } from '../../../../@core/models/register.model';
 import { AuthCredentials } from '../../../../@core/models/auth-credentials.model';
 import { ApiResponse } from '../../../../@core/models/core-response-model/response.model'
 import { SignInResponse } from '../../../../@core/models/sign-in-response.model';
-import { User } from '../../../../@core/models/user.model';
 import { ApiService } from '../../../../@core/core-service/api.service';
+import { NotificationsService } from 'src/@core/core-service/notifications.service';
+import { TuiNotification } from '@taiga-ui/core';
+import { AdminUser } from 'src/@core/models/adminUser.model';
 
 type AuthApiData = SignInResponse | any;
 
@@ -18,16 +20,16 @@ type AuthApiData = SignInResponse | any;
 })
 export class AuthService extends ApiService<AuthApiData> {
 
-  currentUser$: Observable<User | null>;
+  currentUser$: Observable<AdminUser | null>;
   isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<User | null>;
+  currentUserSubject: BehaviorSubject<AdminUser | null>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
-  get currentUserValue(): User | null {
+  get currentUserValue(): AdminUser | null {
     return this.currentUserSubject.value;
   }
 
-  set currentUserValue(user: User | null) {
+  set currentUserValue(user: AdminUser | null) {
     this.currentUserSubject.next(user);
   }
 
@@ -37,11 +39,12 @@ export class AuthService extends ApiService<AuthApiData> {
 
   constructor(
     protected override http: HttpClient,
-    private router: Router
+    private router: Router,
+    private notif: NotificationsService
   ) {
     super(http);
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
-    this.currentUserSubject = new BehaviorSubject<User | null>(<User>getItem(StorageItem.User));
+    this.currentUserSubject = new BehaviorSubject<AdminUser | null>(<AdminUser>getItem(StorageItem.User));
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
 
@@ -50,9 +53,9 @@ export class AuthService extends ApiService<AuthApiData> {
   // public methods
   login(params: AuthCredentials) {
     this.isLoadingSubject.next(true);
-    return this.post('/api/auth/login', params).pipe(
+    return this.post('/auth/login', params).pipe(
+      shareReplay(),
       map((result: ApiResponse<any>) => {
-        console.log('result',result);
         if (!result.hasErrors()) {
           setItem(StorageItem.User, result?.data?.user || null);
           setItem(StorageItem.JwtToken, result?.data?.token || null);
@@ -61,12 +64,13 @@ export class AuthService extends ApiService<AuthApiData> {
           return result
         }
         else {
+          this.notif.displayNotification(result.errors[0]?.error?.message, 'Login Failed!', TuiNotification.Error);
           throw result.errors[0]?.error?.message
         }
       }),
       exhaustMap((res)=>{
         if (res?.data?.user) {
-          return this.get(`/api/user/getUserByID/${res.data.user.id}`)
+          return this.get(`/auth/getUserById/${res.data.user.id}`)
         } else {
           return of(null);
         }
@@ -77,7 +81,6 @@ export class AuthService extends ApiService<AuthApiData> {
         }
       }),
       catchError((err) => {
-        console.error('err', err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false))
@@ -105,7 +108,11 @@ export class AuthService extends ApiService<AuthApiData> {
     );
   }
 
-  updateUser(user:User) {
+  updatePassword(payload: any): Observable<ApiResponse<any>> {
+    return this.post(`/auth/updatePassword/${this.currentUserValue?.id}`, payload);
+  }
+
+  updateUser(user: AdminUser) {
     if (user) {
       this.currentUserSubject.next(user);
       setItem(StorageItem.User, user);
