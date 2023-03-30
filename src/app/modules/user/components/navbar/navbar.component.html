@@ -10,7 +10,7 @@
         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg aria-hidden="true" class="w-5 h-5 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
         </div>
-        <input type="search" id="default-search" class="block outline-none w-full px-4 py-3 pl-10 text-sm text-white rounded-lg bg-[#404957]" placeholder="Search Users..." required>
+        <input [formControl]="searchUser" type="search" id="default-search" class="block outline-none w-full px-4 py-3 pl-10 text-sm text-white rounded-lg bg-[#404957]" placeholder="Search Users..." required>
       </div>
     </li>
     <li class="flex justify-end col-span-4">
@@ -18,7 +18,7 @@
         new
         text="alex inkin"
         size="m"
-        avatarUrl="tuiIconUser"
+        [avatarUrl]="currentUser?.media[0]?.captureFileURL || 'tuiIconUser'"
         class="cursor-pointer tui-space_vertical-1"
       >
       </tui-avatar>
@@ -29,7 +29,7 @@
       <li>
         <a routerLink="/user/userListing" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">List of Users</a>
       </li>
-      <li class="mx-4">
+      <li *ngIf="currentUser" class="mx-4">
         <a routerLink="/user/addNewUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
           <span>
             Add new &nbsp; &#43;
@@ -38,7 +38,7 @@
       </li>
     </div>
     <div class="flex justify-start space-x-5">
-      <li class="cursor-pointer">
+      <li *ngIf class="cursor-pointer">
         <a routerLink="/user/editAdminUser" routerLinkActive="active" class="px-5 py-2 text-white rounded-md">Edit Profile</a>
       </li>
       <li class="cursor-pointer">

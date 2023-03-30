@@ -31,7 +31,7 @@ export class EditAdminComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private auth: AuthService
   ) {
-    this.userService.getUser()
+    this.userService.getUser();
   }
 
   ngOnInit(): void {
@@ -92,7 +92,8 @@ export class EditAdminComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>) => {
       if(!res.hasErrors()) {
         this.notif.displayNotification(res.data.message, 'Profile Update', TuiNotification.Success)
-        this.updatingProfile.next(false)
+        this.updatingProfile.next(false);
+        this.userService.getUser();
       }
       else {
         this.notif.displayNotification('Something went wrong', 'Profile Update', TuiNotification.Error)

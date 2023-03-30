@@ -1,36 +1,8 @@
 <app-navbar></app-navbar>
 <section class="grid grid-cols-12 pb-10 mx-2 my-5 lg:mx-20 md:mx-10">
-  <app-user-card (editUser)="sendEditData($event)" (deleteUser)="openDeleteDialog($event)" class="col-span-12"></app-user-card>
+    <app-user-card
+      (editUser)="sendEditData($event)"
+      class="col-span-12"
+    ></app-user-card>
 </section>
-
-<ng-template
-  #template
-  let-observer
-  let-user
->
-  <div class="dialog-header">
-    <h3>Are you sure you want to delete <span class="mx-1 text-red-500">{{deleteUserData.firstName + ' ' + deleteUserData.middleName + ' ' + deleteUserData.lastName}}'s</span> data?</h3>
-  </div>
-  <div class="dialog-content">
-    <button
-      tuiButton
-      type="button"
-      appearance="secondary"
-      size="m"
-      class="tui-space_right-3"
-      (click)="observer.complete()"
-    >
-    Cancel
-  </button>
-  <button
-    tuiButton
-    type="button"
-    appearance="secondary-destructive"
-    size="m"
-    (click)="observer.complete(); deleteUser()"
-  >
-    Delete
-  </button>
-  </div>
-</ng-template>
 

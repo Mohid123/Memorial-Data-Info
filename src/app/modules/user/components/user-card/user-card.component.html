@@ -1,5 +1,5 @@
-<div class="relative overflow-x-auto shadow-xl sm:rounded-lg">
-  <tui-loader [inheritColor]="true" [showLoader]="false" [overlay]="true" size="xl" class="w-full">
+<tui-loader [inheritColor]="true" [showLoader]="!(userList$ | async)" [overlay]="true" size="l" class="w-full h-100">
+  <div class="relative overflow-x-auto shadow-xl sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -11,8 +11,9 @@
           </th>
         </tr>
       </thead>
-        <tbody>
-          <ng-container *ngFor="let user of userData; let i = index; let first = first; let last = last;">
+      <tbody>
+        <ng-container *ngIf="(userList$ | async)?.data?.length > 0">
+          <ng-container *ngFor="let user of (userList$ | async).data; let i = index; let first = first; let last = last; trackBy: trackByFn">
             <tr class="w-full text-center bg-white" [ngClass]="!last ? 'border-b border-gray-200' : ''">
               <th scope="row" class="w-1/2 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{user.firstName + ' ' + user.middleName + ' ' + user.lastName}}
@@ -25,18 +26,20 @@
                     size="xs"
                     icon="tuiIconEye"
                     appearance="secondary"
-                    routerLink="/user/userDetails"
+                    [routerLink]="['/user/userDetails', user.id]"
                   ></button>
                   <button
+                    *ngIf="loggedInUser"
                     tuiIconButton
                     type="button"
                     size="xs"
                     class="mx-4"
                     icon="tuiIconTrash2"
                     appearance="accent"
-                    (click)="deleteUserData(user)"
+                    (click)="openDeleteDialog(user)"
                   ></button>
                   <button
+                    *ngIf="loggedInUser"
                     tuiIconButton
                     type="button"
                     size="xs"
@@ -49,15 +52,52 @@
               </td>
             </tr>
           </ng-container>
-        </tbody>
+        </ng-container>
+        <ng-container *ngIf="(userList$ | async)?.data?.length == 0">
+          <tr class="w-full">
+            <th scope="row" colspan="12" class="py-10 text-lg font-medium text-center">No Records Found</th>
+          </tr>
+        </ng-container>
+      </tbody>
     </table>
-  </tui-loader>
-  <div class="flex justify-center pt-10 pb-6">
-    <tui-pagination
-      [length]="24"
-      [index]="index"
-      (indexChange)="goToPage($event)"
-    >
-    </tui-pagination>
+    <div *ngIf="(userList$ | async)?.totalCount > 0" class="flex justify-center pt-10 pb-6">
+      <tui-pagination
+        [length]="floorNumber((userList$ | async)?.totalCount/ limit)"
+        [index]="index"
+        (indexChange)="goToPage($event)"
+      >
+      </tui-pagination>
+    </div>
   </div>
-</div>
+</tui-loader>
+
+<ng-template
+  #template
+  let-observer
+  let-user
+>
+  <div class="dialog-header">
+    <h3>Are you sure you want to delete <span class="mx-1 text-red-500">{{deleteUserData.firstName + ' ' + deleteUserData.middleName + ' ' + deleteUserData.lastName}}'s</span> data?</h3>
+  </div>
+  <div class="dialog-content">
+    <button
+      tuiButton
+      type="button"
+      appearance="secondary"
+      size="m"
+      class="tui-space_right-3"
+      (click)="observer.complete()"
+    >
+    Cancel
+  </button>
+  <button
+    tuiButton
+    type="button"
+    appearance="secondary-destructive"
+    size="m"
+    (click)="observer.complete(); deleteUser(deleteUserData.id)"
+  >
+    Delete
+  </button>
+  </div>
+</ng-template>

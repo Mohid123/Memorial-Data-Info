@@ -9,12 +9,12 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TuiAvatarModule, TuiPaginationModule } from '@taiga-ui/kit';
 import { TuiExpandModule, TuiButtonModule, TuiLoaderModule, TuiTextfieldControllerModule } from '@taiga-ui/core';
 import {TuiMarkerIconModule, TuiInputModule, TuiTextAreaModule, TuiInputPasswordModule } from '@taiga-ui/kit';
-import { CardSkeletonComponent } from './components/card-skeleton/card-skeleton.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiPreviewModule } from '@taiga-ui/addon-preview';
 import { EditAdminComponent } from './edit-admin/edit-admin.component';
+import { NgxBlurhashModule } from 'ngx-blurhash-render';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,6 @@ import { EditAdminComponent } from './edit-admin/edit-admin.component';
     UserListingComponent,
     UserCardComponent,
     NavbarComponent,
-    CardSkeletonComponent,
     UserDetailsComponent,
     AddNewUserComponent,
     EditAdminComponent
@@ -42,7 +41,8 @@ import { EditAdminComponent } from './edit-admin/edit-admin.component';
     TuiInputModule,
     TuiInputPasswordModule,
     TuiTextAreaModule,
-    TuiPreviewModule
+    TuiPreviewModule,
+    NgxBlurhashModule
   ]
 })
 export class UserModule { }

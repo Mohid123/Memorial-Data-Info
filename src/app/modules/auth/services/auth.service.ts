@@ -99,7 +99,7 @@ export class AuthService extends ApiService<AuthApiData> {
 
   registration(user: RegisterModel) {
     this.isLoadingSubject.next(true);
-    return this.post('/api/auth/signup',user).pipe(
+    return this.post('/auth/signup',user).pipe(
       map((user:ApiResponse<SignInResponse>) => {
         this.isLoadingSubject.next(false);
         return user;
@@ -115,6 +115,7 @@ export class AuthService extends ApiService<AuthApiData> {
   updateUser(user: AdminUser) {
     if (user) {
       this.currentUserSubject.next(user);
+      this.currentUserValue = user
       setItem(StorageItem.User, user);
     }
   }

@@ -17,7 +17,7 @@
           [tuiTextfieldCleaner]="true"
         >
           First Name&nbsp;
-          
+
           <input
             tuiTextfield
             type="text"
@@ -30,7 +30,7 @@
           [tuiTextfieldCleaner]="true"
         >
           Middle Name&nbsp;
-          
+
           <input
             tuiTextfield
             type="text"
@@ -43,7 +43,7 @@
           [tuiTextfieldCleaner]="true"
         >
           Last Name&nbsp;
-          
+
           <input
             tuiTextfield
             type="text"
@@ -57,7 +57,7 @@
       class="pt-3"
     >
       Designation&nbsp;
-      
+
       <input
         tuiTextfield
         type="text"
@@ -69,7 +69,7 @@
       class="pt-3 tui-space_bottom-4 field-large"
     >
       Bio&nbsp;
-      
+
     </tui-text-area>
 
     <div class="flex justify-center">
@@ -77,6 +77,7 @@
         tuiButton
         type="button"
         (click)="submitUserData()"
+        [showLoader]="(addingUser | async)!"
       >
         Submit
       </button>
