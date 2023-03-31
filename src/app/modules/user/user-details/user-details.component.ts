@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TuiPreviewDialogService } from '@taiga-ui/addon-preview';
 import { TuiDialogContext } from '@taiga-ui/core';
 import { UserService } from '../user.service';
-import { Observable, pluck, switchMap } from 'rxjs';
+import { map, Observable, pluck, switchMap } from 'rxjs';
 
 @Component({
   templateUrl: './user-details.component.html',
@@ -12,8 +12,8 @@ import { Observable, pluck, switchMap } from 'rxjs';
 })
 export class UserDetailsComponent {
   clientInfo: Observable<any>
-  @ViewChild('preview')
-    readonly preview?: TemplateRef<TuiDialogContext>;
+  @ViewChild('preview') readonly preview?: TemplateRef<TuiDialogContext>;
+  clientImage: any;
 
   constructor(
     @Inject(TuiPreviewDialogService) private readonly previewDialogService: TuiPreviewDialogService,

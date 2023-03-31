@@ -38,7 +38,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
       if(val !== '') {
         this.user = val;
         this.initUserForm(val);
-        this.uploadedImage.next(val?.media);
+        this.uploadedImage.next(val?.media[0]);
         this.editMode$.next(true);
       }
     });
