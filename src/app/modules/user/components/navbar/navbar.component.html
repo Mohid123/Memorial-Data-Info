@@ -38,7 +38,7 @@
       </li>
     </div>
     <div class="flex justify-start space-x-5">
-      <li *ngIf class="cursor-pointer">
+      <li *ngIf="currentUser" class="cursor-pointer">
         <a routerLink="/user/editAdminUser" routerLinkActive="active" class="px-5 py-2 text-white rounded-md">Edit Profile</a>
       </li>
       <li class="cursor-pointer">
@@ -66,12 +66,12 @@
       <div class="flex flex-col pt-5">
         <p class="pt-2 pb-5 text-base font-semibold uppercase">Memorial Data Info</p>
         <a routerLink="/user/userListing" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">Users</a>
-        <a routerLink="/user/addNewUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
+        <a *ngIf="currentUser" routerLink="/user/addNewUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
           <span>
             Add new &nbsp; &#43;
           </span>
         </a>
-        <a routerLink="/user/editAdminUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
+        <a *ngIf="currentUser" routerLink="/user/editAdminUser" class="px-5 py-2 text-white rounded-md" routerLinkActive="active">
           Edit Profile
         </a>
         <a (click)="showDialog(template)" class="px-5 pt-2 pb-4 text-white rounded-md cursor-pointer">Logout</a>
@@ -79,7 +79,7 @@
           new
           text="alex inkin"
           size="xs"
-          avatarUrl="tuiIconUser"
+          [avatarUrl]="currentUser?.media[0]?.captureFileURL || 'tuiIconUser'"
           class="cursor-pointer tui-space_vertical-1"
         >
         </tui-avatar>
