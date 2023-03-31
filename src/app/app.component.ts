@@ -11,7 +11,7 @@ function promptUser(event: VersionReadyEvent): boolean {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'User_Manager';
+  title = 'Memorial Data Info';
   constructor(appRef: ApplicationRef, swUpdate: SwUpdate) {
     const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable === true));
     const everySixHours$ = interval(6 * 60 * 60 * 1000);
